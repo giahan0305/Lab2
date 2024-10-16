@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Application</h1>
+    <div id="quiz"></div>
+    <button id="submit">Submit</button>
+    <p id="result"></p>
+    <script>
+        const quiz = document.getElementById('quiz');
+
+        // Array of questions and options
+        const questions = [
+            {
+                question: '1. What is the capital of France?',
+                options: [
+                    { label: 'Paris', value: 'Paris' },
+                    { label: 'London', value: 'London' },
+                    { label: 'Berlin', value: 'Berlin' },
+                    { label: 'Madrid', value: 'Madrid' }
+                ]
+            },
+            {
+                question: '2. Which planet is known as the Red Planet?',
+                options: [
+                    { label: 'Earth', value: 'Earth' },
+                    { label: 'Jupiter', value: 'Jupiter' },
+                    { label: 'Mars', value: 'Mars' },
+                    { label: 'Venus', value: 'Venus' }
+                ]
+            },
+            {
+                question: '3. What is the largest ocean on Earth"?',
+                options: [
+                    { label: 'Atlantic', value: 'Atlantic' },
+                    { label: 'Indian', value: 'Indian' },
+                    { label: 'Arctic', value: 'Arctic' },
+                    { label: 'Pacific', value: 'Pacific' }
+                ]
+            }
+        ];
+
+        // Function to create and append each question and options
+        function createQuestion(questionObj, index) {
+            const questionDiv = document.createElement('div');
+            questionDiv.textContent = questionObj.question;
+            quiz.appendChild(questionDiv);
+
+            // Loop through options for each question
+            for (let i = 0; i < questionObj.options.length; i++) {
+                const option = document.createElement('input');
+                option.type = 'radio';
+                option.name = `question${index}`;  // Different name for each question
+                option.value = questionObj.options[i].value;
+
+                const label = document.createElement('label');
+                label.textContent = questionObj.options[i].label;
+
+                quiz.appendChild(option);
+                quiz.appendChild(label);
+                quiz.appendChild(document.createElement('br')); // Add line break for spacing
+            }
+        }
+
+        for (let i = 0; i < questions.length; i++) {
+            createQuestion(questions[i], i + 1);
+        }
+
+        document.getElementById('submit').addEventListener('click', () => {
+            const result = document.getElementById('result');
+            let score = 0;
+
+            // Check the answers for each question
+            const answers = ['Paris', 'Mars', 'Pacific'];
+            for (let i = 0; i < answers.length; i++) {
+                const selectedOption = document.querySelector(`input[name="question${i+1}"]:checked`);
+                if (selectedOption && selectedOption.value === answers[i]) {
+                    score++;
+                }
+            }
+
+            result.textContent = `You scored: ${score}/${answers.length}.`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Geussing Game</title>
+    <style>
+        body{
+            text-align: center;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the number (1-100)</h1>
+    <input type="number" id="guess" placeholder="Enter your guess">
+    <button id="submitGuess">Guess</button>
+    <p id="feedback"></p>
+
+    <script>
+        let Guessnumber = Math.floor(Math.random() * 100) + 1;
+        console.log(Guessnumber);
+        document.getElementById('submitGuess').addEventListener('click', () => {
+            let number = parseInt(document.getElementById('guess').value);
+            if (number > Guessnumber) {
+                document.getElementById('feedback').textContent = 'Too high!!!';
+            } else if (number < Guessnumber) {
+                document.getElementById('feedback').textContent = 'Too low!!!';
+            } else {
+                document.getElementById('feedback').textContent = 'Correct!!! You guessed it!!!';
+                Guessnumber = Math.floor(Math.random() * 100) + 1;
+                document.getElementById('guess').value = 0;
+                console.log(Guessnumber);
+            }
+        });
+    </script>
+</body>
+</html>
